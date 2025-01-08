@@ -1,6 +1,9 @@
 body {
   margin: 0;
-  font-family: sans-serif;
+}
+
+* {
+  font-family: "Inter", sans-serif;
 }
 
 body {
@@ -12,6 +15,7 @@ body {
   --keyboard-color: #9f9f9f;
   --button-color: #cfcfcf;
   --accent: #0000ff;
+  --red: #f85151;
 }
 
 body[theme="beige"] {
@@ -34,10 +38,24 @@ body[theme="gray"] {
   --key-text-color: #efefef;
 }
 
-h2,
-h3,
+h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
 h4 {
   margin: 0;
+  font-size: 16px;
 }
 
 input {
@@ -45,16 +63,16 @@ input {
   background-color: var(--button-color);
   border: none;
   height: 32px;
-  padding: 0 8px;
+  box-sizing: border-box;
+  padding: 0 16px;
   font-size: 14px;
+  font-weight: 500;
+  width: 80px;
+
 }
 
 input:focus {
   outline: 1px solid black;
-}
-
-input[type="number"] {
-  width: 64px;
 }
 
 button {
@@ -62,6 +80,7 @@ button {
   background-color: var(--button-color);
   border-radius: 6px;
   font-size: 14px;
+  font-weight: 500;
   padding: 0 16px;
   outline: none;
   align-self: flex-start;
@@ -69,7 +88,7 @@ button {
 }
 
 #topnav {
-  height: 32px;
+  height: 0px;
   background-color: var(--button-color);
 }
 
@@ -84,7 +103,7 @@ button {
   padding: 64px;
   max-width: 1200px;
   width: 100%;
-  gap: 32px;
+  gap: 64px;
 }
 
 #main #content #keyboard {
@@ -161,7 +180,7 @@ button {
 #main #content #options {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 32px;
 }
 
 #main #content #options div.col {
@@ -181,4 +200,5 @@ button {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 8px;
+  align-self: flex-start;
 }
