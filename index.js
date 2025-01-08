@@ -82,6 +82,7 @@ function addKeyToNewRow() {
   for (let i = 0; i < document.querySelector("#key-amount-input").value; i++) {
     board.keys[board.keys.length - 1].push(JSON.parse(JSON.stringify(defaultKey))); // push a deep clone NOT a reference!
   }
+  selectedKey[0] += 1;
   generateBoard();
 }
 
@@ -140,8 +141,6 @@ function changeKeyboardTheme(t) {
   document.body.setAttribute("theme", t);
 }
 
-
-
 function saveJSON() {
   const json = JSON.stringify(board, null, 2);
   const blob = new Blob([json], { type: "application/json" });
@@ -155,4 +154,3 @@ function saveJSON() {
   a.click();
   document.body.removeChild(a); // Clean up the anchor element after download
 }
-
