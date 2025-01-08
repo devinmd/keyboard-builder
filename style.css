@@ -1,0 +1,184 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+body {
+  --key-top-color: #ffffff; /* Example color for key top */
+  --key-side-color: #cfcfcf; /* Example color for key side */
+  --key-text-color: #101010;
+  --key-border-color: transparent;
+  --text-color: #101010; /* Example color for text */
+  --keyboard-color: #9f9f9f;
+  --button-color: #cfcfcf;
+  --accent: #0000ff;
+}
+
+body[theme="beige"] {
+  --key-top-color: #e0ddd7; /* Example color for key top */
+  --key-side-color: #ccc7bc; /* Example color for key side */
+  --keyboard-color: #b0aa9d; /* Example background color for body */
+}
+
+body[theme="black"] {
+  --key-top-color: #404040;
+  --key-side-color: #303030;
+  --keyboard-color: #101010;
+  --key-text-color: #efefef;
+}
+
+body[theme="gray"] {
+  --key-top-color: #63696d;
+  --key-side-color: #52585c;
+  --keyboard-color: #3a4045;
+  --key-text-color: #efefef;
+}
+
+h2,
+h3,
+h4 {
+  margin: 0;
+}
+
+input {
+  border-radius: 6px;
+  background-color: var(--button-color);
+  border: none;
+  height: 32px;
+  padding: 0 8px;
+  font-size: 14px;
+}
+
+input:focus {
+  outline: 1px solid black;
+}
+
+input[type="number"] {
+  width: 64px;
+}
+
+button {
+  height: 32px;
+  background-color: var(--button-color);
+  border-radius: 6px;
+  font-size: 14px;
+  padding: 0 16px;
+  outline: none;
+  align-self: flex-start;
+  border: none;
+}
+
+#topnav {
+  height: 32px;
+  background-color: var(--button-color);
+}
+
+#main {
+  display: flex;
+  justify-content: center;
+}
+
+#main #content {
+  display: flex;
+  flex-direction: column;
+  padding: 64px;
+  max-width: 1200px;
+  width: 100%;
+  gap: 32px;
+}
+
+#main #content #keyboard {
+  display: flex;
+  background-color: var(--keyboard-color);
+  border-radius: 16px;
+  gap: 2px;
+  align-self: flex-start;
+  padding: 16px;
+  box-sizing: border-box;
+  min-height: 80px;
+  min-width: 130px;
+  flex-direction: column;
+}
+
+#main #content #keyboard .row {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+}
+
+#main #content #keyboard .row .key.active {
+  border: 2px solid var(--accent);
+}
+
+#main #content #keyboard .row .key {
+  width: 48px;
+  min-width: 48px;
+  border-radius: 4px;
+  height: 48px;
+  border: 1px solid var(--key-border-color);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--key-side-color);
+  padding: 2px 4px 6px 4px;
+}
+
+#main #content #keyboard .row .key.knob {
+  width: 48px;
+  min-width: 48px;
+  border-radius: 24px;
+  height: 48px;
+  border: 1px solid var(--key-border-color);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--key-side-color);
+  padding: 4px;
+}
+
+#main #content #keyboard .row .key button {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-radius: 6px;
+  grid-template-rows: repeat(3, 1fr);
+  background-color: var(--key-top-color);
+  width: 100%;
+  color: var(--key-text-color);
+  border: none;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+
+#main #content #keyboard .row .key .legend {
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+#main #content #options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#main #content #options div.col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#main #content #options div.row {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+#main #content #options div #legend-input-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 8px;
+}
