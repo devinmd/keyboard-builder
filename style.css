@@ -13,7 +13,11 @@ body {
   --key-border-color: transparent;
   --text-color: #101010; /* Example color for text */
   --keyboard-color: #9f9f9f;
-  --button-color: #cfcfcf;
+  --button-color: #dfdfdf;
+  --button-disabled-color: #efefef;
+  --button-hover-color: #cfcfcf;
+  --button-disabled-text-color: #afafaf;
+  --input-placeholder-text-color: #8f8f8f;
   --accent: #0000ff;
   --red: #f85151;
 }
@@ -58,8 +62,22 @@ h4 {
   font-size: 16px;
 }
 
+select {
+  border-radius: 8px;
+  background-color: var(--button-color);
+  align-self: flex-start;
+  height: 32px;
+  box-sizing: border-box;
+  padding: 0 16px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  outline: none;
+  width: 240px;
+}
+
 input {
-  border-radius: 6px;
+  border-radius: 8px;
   background-color: var(--button-color);
   border: none;
   height: 32px;
@@ -68,23 +86,38 @@ input {
   font-size: 14px;
   font-weight: 500;
   width: 80px;
+}
 
+input::placeholder {
+  color: var(--input-placeholder-text-color);
 }
 
 input:focus {
-  outline: 1px solid black;
+  outline: 2px solid --accent;
 }
 
 button {
   height: 32px;
   background-color: var(--button-color);
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
   padding: 0 16px;
   outline: none;
+  transition: 50ms;
   align-self: flex-start;
   border: none;
+}
+
+button:hover {
+  background-color: var(--button-hover-color);
+}
+
+button:disabled,
+select:disabled,
+input:disabled {
+  background-color: var(--button-disabled-color);
+  color: var(--button-disabled-text-color);
 }
 
 #topnav {
@@ -114,7 +147,7 @@ button {
   align-self: flex-start;
   padding: 16px;
   box-sizing: border-box;
-  min-height: 80px;
+  min-height: calc(16px + 16px + 48px);
   min-width: 130px;
   flex-direction: column;
 }
@@ -125,8 +158,10 @@ button {
   gap: 2px;
 }
 
-#main #content #keyboard .row .key.active {
-  border: 2px solid var(--accent);
+#main #content #keyboard .row .key.active,
+#main #content #keyboard .row .key.active.knob {
+  outline: 2px solid var(--accent);
+  z-index: 99;
 }
 
 #main #content #keyboard .row .key {
@@ -143,18 +178,21 @@ button {
   padding: 2px 4px 6px 4px;
 }
 
+#main #content #keyboard .row .key.spacer {
+  background-color: var(--keyboard-color);
+}
+
+#main #content #keyboard .row .key.spacer button {
+  background-color: var(--keyboard-color);
+}
+
 #main #content #keyboard .row .key.knob {
-  width: 48px;
-  min-width: 48px;
   border-radius: 24px;
-  height: 48px;
-  border: 1px solid var(--key-border-color);
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--key-side-color);
-  padding: 4px;
+  padding: 2px;
+}
+
+#main #content #keyboard .row .key.knob button {
+  border-radius: 50%;
 }
 
 #main #content #keyboard .row .key button {
@@ -174,13 +212,20 @@ button {
 
 #main #content #keyboard .row .key .legend {
   text-align: center;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
+  font-size: 14px;
+  font-weight: 400;
+
 }
 
 #main #content #options {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 32px;
+  grid-template-columns: repeat(2, 1fr);
+}
+#main #content #options label {
+  font-size: 14px;
+  font-weight: 500;
 }
 
 #main #content #options div.col {
@@ -191,6 +236,7 @@ button {
 
 #main #content #options div.row {
   display: flex;
+  align-items: center;
   flex-direction: row;
   gap: 8px;
 }

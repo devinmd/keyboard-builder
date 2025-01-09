@@ -3,6 +3,7 @@
 Website to create a keyboard layout
 
 ### To-do
+
 - custom theme
 - change colors by key individually
 - selecting multiple keys for mass editing
@@ -10,4 +11,4 @@ Website to create a keyboard layout
 - download as image or json
 - presets
 - keyboard shortcuts
-
+- force knobs to be 1u wide

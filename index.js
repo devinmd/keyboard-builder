@@ -10,7 +10,7 @@ const defaultKey = {
   textColor: "#efefef",
   fontSize: 8,
   legends: [],
-  type: "",
+  type: "key",
 };
 
 var board = {
@@ -18,9 +18,10 @@ var board = {
   keys: [[]],
 };
 
-var selectedKey = [0, -1];
+var selectedKey = [0, 0];
 
 function start() {
+  unselectKey()
   generateBoard();
 }
 
@@ -41,8 +42,10 @@ function generateBoard() {
       const keyContent = document.createElement("button");
       keyContainer.className = "key";
       if (keyInfo.type == "knob") keyContainer.classList.add("knob");
+      if (keyInfo.type == "spacer") keyContainer.classList.add("spacer");
 
       keyContainer.onclick = function () {
+        event.stopPropagation(); // Prevent the event from bubbling up to the parent
         selectedKey = [r, k];
         selectKey(keyContainer, keyInfo);
       };
@@ -70,35 +73,70 @@ function generateBoard() {
 }
 
 function addKeySameRow() {
-  const rownum = selectedKey[0];
-  for (let i = 0; i < document.querySelector("#key-amount-input").value; i++) {
-    board.keys[rownum].push(JSON.parse(JSON.stringify(defaultKey))); // push a deep clone NOT a reference!
+  // get amount
+  const amount = document.querySelector("#key-amount-input").value;
+  // add keys
+  for (let i = 0; i < amount; i++) {
+    board.keys[selectedKey[0]].push(JSON.parse(JSON.stringify(defaultKey))); // push a deep clone NOT a reference!
   }
+  // select the last key added
+  selectedKey[1] = board.keys[selectedKey[0]].length - 1;
+  // regenerate board
   generateBoard();
 }
 
 function addKeyToNewRow() {
+  // get amount
+  const amount = document.querySelector("#key-amount-input").value;
+  // create new empty row
   board.keys[board.keys.length] = [];
-  for (let i = 0; i < document.querySelector("#key-amount-input").value; i++) {
+  // add keys
+  for (let i = 0; i < amount; i++) {
     board.keys[board.keys.length - 1].push(JSON.parse(JSON.stringify(defaultKey))); // push a deep clone NOT a reference!
   }
+  // select the last key added
   selectedKey[0] += 1;
+  selectedKey[1] = amount - 1;
+  // regenerate board
   generateBoard();
+}
+
+function unselectKey() {
+  const keys = document.querySelectorAll("#main #content #keyboard .key");
+  keys.forEach((key) => {
+    key.classList.remove("active");
+  });
+  let elems = document.querySelectorAll(
+    "#main #content #options #key-options button, #main #content #options #key-options input,#main #content #options #key-options select"
+  );
+  for (i in elems) {
+    elems[i].disabled = true;
+  }
+  const legendInputs = document.querySelector("#main #content #options div #legend-input-container").children;
+  for (i in legendInputs) {
+    legendInputs[i].value = "";
+  }
+  document.querySelector("#key-width-input").value = "";
 }
 
 function selectKey(keyObject, keyInfo) {
   if (!keyObject || !keyInfo) return;
 
-  const keys = document.querySelectorAll("#main #content #keyboard .key");
+  let elems = document.querySelectorAll(
+    "#main #content #options #key-options button, #main #content #options #key-options input,#main #content #options #key-options select"
+  );
+  for (i in elems) {
+    elems[i].disabled = false;
+  }
 
+  // set active class
+  const keys = document.querySelectorAll("#main #content #keyboard .key");
   keys.forEach((key) => {
     key.classList.remove("active");
   });
-
   keyObject.classList.add("active");
 
-  //
-
+  // set legend inputs
   const legendInputs = document.querySelector("#main #content #options div #legend-input-container").children;
   for (i in legendInputs) {
     legendInputs[i].value = "";
@@ -107,7 +145,13 @@ function selectKey(keyObject, keyInfo) {
     legendInputs[keyInfo.legends[i].location].value = keyInfo.legends[i].content;
   }
 
+  // set key width input
   document.querySelector("#key-width-input").value = keyInfo.width;
+}
+
+function editKeyType(value) {
+  board.keys[selectedKey[0]][selectedKey[1]].type = value;
+  generateBoard();
 }
 
 function editLegend(value, location) {
@@ -124,6 +168,10 @@ function editKeyWidth(value) {
 
 function deleteKey() {
   board.keys[selectedKey[0]].splice([selectedKey[1]], 1);
+  if (board.keys[selectedKey[0]].length === 0) {
+    board.keys.splice(selectedKey[0], 1);
+    selectedKey = [0, 0];
+  }
   generateBoard();
 }
 
