@@ -15,7 +15,15 @@
   <div id="topnav"></div>
   <div id="main">
     <div id="content">
-      <h1>Keyboard Builder</h1>
+      <div class="row">
+        <h1>Keyboard Builder</h1>
+        <div style="margin-left: auto;"></div>
+        <button class="clear">Templates</button>
+        <button class="clear">Gallery</button>
+        <button class="clear">Account</button>
+        <button class="clear">About</button>
+
+      </div>
       <div id="keyboard" onclick="unselectKey()"></div>
       <h2 style="margin-bottom: -32px;">Options</h2>
       <div id="options">
@@ -31,10 +39,10 @@
           <h4>Keyboard Themes</h4>
 
           <div class="row">
-            <button onclick="changeKeyboardTheme('white')" style="border: 1px solid black; background-color: white; color: black;">White</button>
-            <button onclick="changeKeyboardTheme('black')" style="border: 1px solid black; background-color: #202020; color: white;">Black</button>
-            <button onclick="changeKeyboardTheme('beige')" style="border: 1px solid black; background-color: #ccc7bc; color: black;">Beige</button>
-            <button onclick="changeKeyboardTheme('gray')" style="border: 1px solid black; background-color: #636568; color: white;">Gray</button>
+            <button onclick="changeKeyboardTheme('white')" style=" background-color: #efefef; color: black;">White</button>
+            <button onclick="changeKeyboardTheme('black')" style=" background-color: #202020; color: white;">Black</button>
+            <button onclick="changeKeyboardTheme('beige')" style=" background-color: #ccc7bc; color: black;">Beige</button>
+            <button onclick="changeKeyboardTheme('gray')" style=" background-color: #636568; color: white;">Gray</button>
           </div>
         </div>
         <div class="col" id="key-options">
@@ -61,8 +69,8 @@
             <input type="text" oninput="editLegend(this.value, 7)">
             <input type="text" oninput="editLegend(this.value, 8)">
           </div>
-          <h4>Legend size</h4>
-          <input type="number" min="1" step="1" oninput="">
+          <h4 style="display: none;">Legend size</h4>
+          <input style="display: none;" type="number" min="1" step="1" oninput="">
         </div>
 
 
@@ -70,12 +78,12 @@
           <h3>Import and Export</h3>
 
           <div class="col">
-            <h4>Import</h4>
+            <h4>Import new design</h4>
             <div class="row">
               <input type="text" id="json-input" placeholder="Paste JSON here" style="width: 240px;">
               <button onclick="importJSON()">Import</button>
             </div>
-            <h4>Export</h4>
+            <h4>Export current design</h4>
             <div class="row">
               <button onclick="copyCurrentBoard()">Copy to clipboard</button>
               <button onclick="saveJSON()">Save as .json</button>

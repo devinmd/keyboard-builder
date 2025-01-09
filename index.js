@@ -5,10 +5,10 @@ window.onload = function () {
 
 const defaultKey = {
   width: 1,
-  height: 1,
-  color: "#202020",
-  textColor: "#efefef",
-  fontSize: 8,
+  // height: 1,
+  // color: "#202020",
+  // textColor: "#efefef",
+  // fontSize: 8,
   legends: [],
   type: "key",
 };
@@ -21,7 +21,7 @@ var board = {
 var selectedKey = [0, 0];
 
 function start() {
-  unselectKey()
+  unselectKey();
   generateBoard();
 }
 
@@ -30,7 +30,7 @@ function generateBoard() {
   for (let r = 0; r < board.keys.length; r++) {
     // for each row
     const rowContainer = document.createElement("div");
-    rowContainer.className = "row";
+    rowContainer.className = "kbrow";
     for (let k = 0; k < board.keys[r].length; k++) {
       // for each key in row
       const keyInfo = board.keys[r][k];
@@ -75,12 +75,13 @@ function generateBoard() {
 function addKeySameRow() {
   // get amount
   const amount = document.querySelector("#key-amount-input").value;
+  const location = selectedKey[1] + 1;
   // add keys
   for (let i = 0; i < amount; i++) {
-    board.keys[selectedKey[0]].push(JSON.parse(JSON.stringify(defaultKey))); // push a deep clone NOT a reference!
+    board.keys[selectedKey[0]].splice(location, 0, JSON.parse(JSON.stringify(defaultKey))); // push a deep clone NOT a reference!
   }
-  // select the last key added
-  selectedKey[1] = board.keys[selectedKey[0]].length - 1;
+  // select the key added
+  selectedKey[1] = location;
   // regenerate board
   generateBoard();
 }
@@ -168,11 +169,12 @@ function editKeyWidth(value) {
 
 function deleteKey() {
   board.keys[selectedKey[0]].splice([selectedKey[1]], 1);
-  if (board.keys[selectedKey[0]].length === 0) {
+  if (board.keys[selectedKey[0]].length === 0 && selectedKey[0] != 0) {
     board.keys.splice(selectedKey[0], 1);
     selectedKey = [0, 0];
   }
   generateBoard();
+  unselectKey();
 }
 
 function copyCurrentBoard() {

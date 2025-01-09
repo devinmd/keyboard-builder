@@ -23,8 +23,8 @@ body {
 }
 
 body[theme="beige"] {
-  --key-top-color: #e0ddd7; /* Example color for key top */
-  --key-side-color: #ccc7bc; /* Example color for key side */
+  --key-top-color: #edebe6; /* Example color for key top */
+  --key-side-color: #d2cec6; /* Example color for key side */
   --keyboard-color: #b0aa9d; /* Example background color for body */
 }
 
@@ -93,7 +93,7 @@ input::placeholder {
 }
 
 input:focus {
-  outline: 2px solid --accent;
+  outline: 2px solid var(--accent);
 }
 
 button {
@@ -104,9 +104,17 @@ button {
   font-weight: 500;
   padding: 0 16px;
   outline: none;
+  box-sizing: border-box;
   transition: 50ms;
-  align-self: flex-start;
   border: none;
+}
+
+button.clear {
+  background-color: transparent;
+}
+
+button.clear:hover {
+  background-color: var(--button-disabled-color);
 }
 
 button:hover {
@@ -146,30 +154,37 @@ input:disabled {
   gap: 2px;
   align-self: flex-start;
   padding: 16px;
+  margin: auto;
   box-sizing: border-box;
   min-height: calc(16px + 16px + 48px);
   min-width: 130px;
   flex-direction: column;
 }
 
-#main #content #keyboard .row {
+#main #content #keyboard .kbrow {
   display: flex;
   flex-direction: row;
   gap: 2px;
 }
 
-#main #content #keyboard .row .key.active,
-#main #content #keyboard .row .key.active.knob {
+#main #content #keyboard .kbrow .key.active,
+#main #content #keyboard .kbrow.key.active.knob {
   outline: 2px solid var(--accent);
   z-index: 99;
 }
 
-#main #content #keyboard .row .key {
+#main #content #keyboard .kbrow .key:hover {
+  outline: 2px solid var(--accent);
+}
+
+#main #content #keyboard .kbrow .key {
   width: 48px;
   min-width: 48px;
+  transition: 20ms;
   border-radius: 4px;
   height: 48px;
   border: 1px solid var(--key-border-color);
+  z-index: 2;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -178,24 +193,24 @@ input:disabled {
   padding: 2px 4px 6px 4px;
 }
 
-#main #content #keyboard .row .key.spacer {
+#main #content #keyboard .kbrow .key.spacer {
   background-color: var(--keyboard-color);
 }
 
-#main #content #keyboard .row .key.spacer button {
+#main #content #keyboard .kbrow .key.spacer button {
   background-color: var(--keyboard-color);
 }
 
-#main #content #keyboard .row .key.knob {
+#main #content #keyboard .kbrow .key.knob {
   border-radius: 24px;
   padding: 2px;
 }
 
-#main #content #keyboard .row .key.knob button {
+#main #content #keyboard .kbrow .key.knob button {
   border-radius: 50%;
 }
 
-#main #content #keyboard .row .key button {
+#main #content #keyboard .kbrow .key button {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   border-radius: 6px;
@@ -210,12 +225,11 @@ input:disabled {
   max-height: 100%;
 }
 
-#main #content #keyboard .row .key .legend {
+#main #content #keyboard .kbrow .key .legend {
   text-align: center;
   letter-spacing: 0.01em;
   font-size: 14px;
   font-weight: 400;
-
 }
 
 #main #content #options {
@@ -234,11 +248,15 @@ input:disabled {
   gap: 16px;
 }
 
-#main #content #options div.row {
+#main #content div.row {
   display: flex;
   align-items: center;
   flex-direction: row;
   gap: 8px;
+}
+
+#main #content #options div button {
+  align-self: flex-start;
 }
 
 #main #content #options div #legend-input-container {
