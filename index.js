@@ -15,7 +15,7 @@ const defaultKey = {
 
 var board = {
   name: "",
-  keys: [[]],
+  keys: [],
 };
 
 var selectedKey = [0, 0];
@@ -27,6 +27,10 @@ function start() {
 
 function generateBoard() {
   document.querySelector("#content #keyboard").innerHTML = "";
+  document.querySelector("#col-count").innerHTML = "Columns: " + longestChildArrayLength(board.keys);
+  document.querySelector("#row-count").innerHTML = "Rows: " + board.keys.length;
+  document.querySelector("#key-count").innerHTML = "Keys: " + countKeys();
+
   for (let r = 0; r < board.keys.length; r++) {
     // for each row
     const rowContainer = document.createElement("div");
@@ -76,6 +80,7 @@ function addKeySameRow() {
   // get amount
   const amount = document.querySelector("#key-amount-input").value;
   const location = selectedKey[1] + 1;
+  if (!board.keys[0]) board.keys.push([]);
   // add keys
   for (let i = 0; i < amount; i++) {
     board.keys[selectedKey[0]].splice(location, 0, JSON.parse(JSON.stringify(defaultKey))); // push a deep clone NOT a reference!
@@ -148,6 +153,9 @@ function selectKey(keyObject, keyInfo) {
 
   // set key width input
   document.querySelector("#key-width-input").value = keyInfo.width;
+
+  // set  key type selector
+  document.querySelector("#key-type-select").value = keyInfo.type;
 }
 
 function editKeyType(value) {
@@ -203,4 +211,26 @@ function saveJSON() {
   document.body.appendChild(a); // Append anchor to DOM to ensure it works in some browsers
   a.click();
   document.body.removeChild(a); // Clean up the anchor element after download
+}
+
+function longestChildArrayLength(arr) {
+  if (!Array.isArray(arr) || arr.length === 0) {
+    return 0; // Return 0 if the input is not an array or is empty
+  }
+  return Math.max(...arr.map((child) => child.length || 0));
+}
+
+function countKeys() {
+  total = {
+    key: 0,
+    knob: 0,
+  };
+  for (let r = 0; r < board.keys.length; r++) {
+    for (let k = 0; k < board.keys[r].length; k++) {
+      let key = board.keys[r][k];
+      if ((key.type == "spacer")) continue;
+      total[key.type] += 1;
+    }
+  }
+  return total.key + total.knob;
 }

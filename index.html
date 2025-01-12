@@ -29,9 +29,11 @@
       <div id="options">
         <div class="col">
           <h3>Keyboard Options</h3>
-
+          <h4 id="row-count">Rows: 0</h4>
+          <h4 id="col-count">Columns: 0</h4>
+          <h4 id="key-count">Keys: 0</h4>
           <div class="row">
-            <input type="number" min="1" step="1" id="key-amount-input" value="1" style="display: none;">
+            <input type="number" min="1" step="1" id="key-amount-input" value="1">
             <button onclick="addKeySameRow()">Add key</button>
             <button onclick="addKeyToNewRow()">Add key to new row</button>
           </div>
@@ -50,7 +52,7 @@
 
           <button id="delete-key" onclick="deleteKey()">Delete key</button>
           <h4>Key Type</h4>
-          <select oninput="editKeyType(this.value)">
+          <select oninput="editKeyType(this.value)" id="key-type-select">
             <option value="key">Key</option>
             <option value="knob">Knob</option>
             <option value="spacer">Spacer</option>
