@@ -13,6 +13,4 @@ Website to create a keyboard layout
 - download as image or json
 - presets/templates
 - keyboard shortcuts
-- force knobs to be 1u wide
-- allow spacer key type to be less than 1u
 - notes field 

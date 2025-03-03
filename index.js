@@ -128,21 +128,20 @@ function unselectKey() {
 function selectKey(keyObject, keyInfo) {
   if (!keyObject || !keyInfo) return;
 
+  // undisable inputs
   let elems = document.querySelectorAll(
     "#main #content #options #key-options button, #main #content #options #key-options input,#main #content #options #key-options select"
   );
-  for (i in elems) {
-    elems[i].disabled = false;
-  }
+  for (i in elems) elems[i].disabled = false;
 
-  // set active class
+  // set key to active
   const keys = document.querySelectorAll("#main #content #keyboard .key");
   keys.forEach((key) => {
     key.classList.remove("active");
   });
   keyObject.classList.add("active");
 
-  // set legend inputs
+  // set legend inputs to have proper values
   const legendInputs = document.querySelector("#main #content #options div #legend-input-container").children;
   for (i in legendInputs) {
     legendInputs[i].value = "";
@@ -153,6 +152,8 @@ function selectKey(keyObject, keyInfo) {
 
   // set key width input
   document.querySelector("#key-width-input").value = keyInfo.width;
+  document.querySelector("#key-width-input").setAttribute("min", keyInfo.type == "spacer" ? "0.25" : "1");
+  document.querySelector("#key-width-input").setAttribute("max", keyInfo.type == "knob" ? "1" : "9999");
 
   // set  key type selector
   document.querySelector("#key-type-select").value = keyInfo.type;
@@ -228,7 +229,7 @@ function countKeys() {
   for (let r = 0; r < board.keys.length; r++) {
     for (let k = 0; k < board.keys[r].length; k++) {
       let key = board.keys[r][k];
-      if ((key.type == "spacer")) continue;
+      if (key.type == "spacer") continue;
       total[key.type] += 1;
     }
   }
